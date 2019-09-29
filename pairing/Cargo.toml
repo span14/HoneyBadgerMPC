@@ -1,3 +1,4 @@
+cargo-features = ["rename-dependency"]
 [package]
 name = "pypairing"
 
@@ -16,7 +17,6 @@ description = "Pairing-friendly elliptic curve library"
 documentation = "https://docs.rs/pairing/"
 homepage = "https://github.com/ebfull/pairing"
 repository = "https://github.com/ebfull/pairing"
-cargo-features = ["rename-dependency"]
 
 [dependencies]
 rand = "0.4"
