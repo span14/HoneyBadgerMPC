@@ -20,7 +20,7 @@ repository = "https://github.com/ebfull/pairing"
 [dependencies]
 rand = "0.4"
 byteorder = "1"
-cfg-if = "0.1"
+cfg-if = "<0.1.10"
 ff = { version = "0.4", features = ["derive"] }
 
 [dependencies.pyo3]
