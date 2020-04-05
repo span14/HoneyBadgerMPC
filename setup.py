@@ -3,9 +3,10 @@
 
 import os
 
-from setuptools import setup, find_packages
-from setuptools.extension import Extension
 from Cython.Build import cythonize
+
+from setuptools import find_packages, setup
+from setuptools.extension import Extension
 
 NAME = "honeybadgermpc"
 DESCRIPTION = "honeybadgermpc"
@@ -15,7 +16,9 @@ VERSION = None
 REQUIRED = ["gmpy2", "zfec", "pycrypto", "cffi", "psutil", "pyzmq"]
 
 TESTS_REQUIRES = [
+    "black",
     "flake8",
+    "flake8-import-order",
     "pep8-naming",
     "pytest",
     "pytest-asyncio",
@@ -55,7 +58,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 
 try:
     with open(os.path.join(here, "README.md"), encoding="utf-8") as f:
-        long_description = f"\n{f.read()}"
+        long_description = f.read()
 except FileNotFoundError:
     long_description = DESCRIPTION
 

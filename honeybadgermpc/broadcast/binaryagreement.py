@@ -1,8 +1,8 @@
 import asyncio
-from collections import defaultdict
 import logging
+from collections import defaultdict
 
-from honeybadgermpc.exceptions import RedundantMessageError, AbandonedNodeError
+from honeybadgermpc.exceptions import AbandonedNodeError, RedundantMessageError
 
 
 logger = logging.getLogger(__name__)
@@ -373,6 +373,8 @@ if __name__ == "__main__":
     from honeybadgermpc.ipc import ProcessProgramRunner
     from honeybadgermpc.broadcast.crypto.boldyreva import TBLSPublicKey  # noqa:F401
     from honeybadgermpc.broadcast.crypto.boldyreva import TBLSPrivateKey  # noqa:F401
+
+    HbmpcConfig.load_config()
 
     pbk = pickle.loads(base64.b64decode(HbmpcConfig.extras["public_key"]))
     pvk = pickle.loads(base64.b64decode(HbmpcConfig.extras["private_key"]))

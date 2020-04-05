@@ -1,14 +1,15 @@
 import asyncio
 import logging
-from honeybadgermpc.hbavss import HbAvssLight
-from honeybadgermpc.avss_value_processor import AvssValueProcessor
-from honeybadgermpc.broadcast.crypto.boldyreva import dealer
-from honeybadgermpc.betterpairing import G1, ZR
-from honeybadgermpc.progs.random_refinement import refine_randoms
-from honeybadgermpc.field import GF
-from honeybadgermpc.elliptic_curve import Subgroup
-from honeybadgermpc.utils.misc import wrap_send, subscribe_recv
 from abc import ABC, abstractmethod
+
+from honeybadgermpc.avss_value_processor import AvssValueProcessor
+from honeybadgermpc.betterpairing import G1, ZR
+from honeybadgermpc.broadcast.crypto.boldyreva import dealer
+from honeybadgermpc.elliptic_curve import Subgroup
+from honeybadgermpc.field import GF
+from honeybadgermpc.hbavss import HbAvssLight
+from honeybadgermpc.progs.random_refinement import refine_randoms
+from honeybadgermpc.utils.misc import subscribe_recv, wrap_send
 
 
 def get_avss_params(n, t, my_id):
@@ -227,6 +228,8 @@ async def _prog(peers, n, t, my_id):
 if __name__ == "__main__":
     from honeybadgermpc.config import HbmpcConfig
     from honeybadgermpc.ipc import ProcessProgramRunner
+
+    HbmpcConfig.load_config()
 
     asyncio.set_event_loop(asyncio.new_event_loop())
     loop = asyncio.get_event_loop()

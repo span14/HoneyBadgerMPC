@@ -1,23 +1,25 @@
-from honeybadgermpc.progs.mixins.dataflow import (
-    Share,
-    ShareArray,
-    ShareFuture,
-    GFElementFuture,
-)
 import asyncio
 import logging
 from collections import defaultdict
-from .polynomial import polynomials_over
+
+from honeybadgermpc.progs.mixins.dataflow import (
+    GFElementFuture,
+    Share,
+    ShareArray,
+    ShareFuture,
+)
+
+from .batch_reconstruction import batch_reconstruct
+from .config import ConfigVars
+from .elliptic_curve import Subgroup
+from .exceptions import HoneyBadgerMPCError
 from .field import GF, GFElement
-from .polynomial import EvalPoint
-from .router import SimpleRouter
+from .polynomial import EvalPoint, polynomials_over
+from .preprocessing import PreProcessedElements
 from .program_runner import ProgramRunner
 from .robust_reconstruction import robust_reconstruct
-from .batch_reconstruction import batch_reconstruct
-from .elliptic_curve import Subgroup
-from .preprocessing import PreProcessedElements
-from .config import ConfigVars
-from .exceptions import HoneyBadgerMPCError
+from .router import SimpleRouter
+from .utils.misc import print_exception_callback
 
 
 class Mpc(object):
@@ -92,7 +94,9 @@ class Mpc(object):
         if name not in self.config:
             raise NotImplementedError(f"Mixin {name} not present!")
 
-        return asyncio.create_task(self.config[name](self, *args, **kwargs))
+        task = asyncio.create_task(self.config[name](self, *args, **kwargs))
+        task.add_done_callback(print_exception_callback)
+        return task
 
     def open_share(self, share):
         """ Given secret-shared value share, open the value by

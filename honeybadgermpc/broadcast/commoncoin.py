@@ -1,9 +1,10 @@
-import logging
-import base64
-from honeybadgermpc.broadcast.crypto.boldyreva import serialize, deserialize1
 import asyncio
-from collections import defaultdict
+import base64
 import hashlib
+import logging
+from collections import defaultdict
+
+from honeybadgermpc.broadcast.crypto.boldyreva import deserialize1, serialize
 
 
 logger = logging.getLogger(__name__)
@@ -132,6 +133,8 @@ if __name__ == "__main__":
     from honeybadgermpc.ipc import ProcessProgramRunner
     from honeybadgermpc.broadcast.crypto.boldyreva import TBLSPublicKey  # noqa:F401
     from honeybadgermpc.broadcast.crypto.boldyreva import TBLSPrivateKey  # noqa:F401
+
+    HbmpcConfig.load_config()
 
     pbk = pickle.loads(base64.b64decode(HbmpcConfig.extras["public_key"]))
     pvk = pickle.loads(base64.b64decode(HbmpcConfig.extras["private_key"]))

@@ -1,19 +1,20 @@
-import time
 import asyncio
 import logging
+import time
+
 from honeybadgermpc.config import HbmpcConfig
+from honeybadgermpc.elliptic_curve import Subgroup
 from honeybadgermpc.exceptions import HoneyBadgerMPCError
 from honeybadgermpc.field import GF
-from honeybadgermpc.elliptic_curve import Subgroup
-from honeybadgermpc.polynomial import EvalPoint, polynomials_over
-from honeybadgermpc.reed_solomon import EncoderFactory, DecoderFactory
-from honeybadgermpc.mpc import Mpc
 from honeybadgermpc.ipc import ProcessProgramRunner
+from honeybadgermpc.mpc import Mpc
+from honeybadgermpc.polynomial import EvalPoint, polynomials_over
+from honeybadgermpc.reed_solomon import DecoderFactory, EncoderFactory
 from honeybadgermpc.utils.misc import (
-    wrap_send,
-    transpose_lists,
     flatten_lists,
     subscribe_recv,
+    transpose_lists,
+    wrap_send,
 )
 
 
@@ -247,6 +248,8 @@ async def _run(peers, n, t, k, my_id):
 
 
 if __name__ == "__main__":
+    HbmpcConfig.load_config()
+
     asyncio.set_event_loop(asyncio.new_event_loop())
     loop = asyncio.get_event_loop()
     loop.run_until_complete(

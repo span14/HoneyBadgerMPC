@@ -14,7 +14,7 @@ HoneyBadgerMPC is a research prototype, and is best used for prototyping, proofs
 - for testing and development, they can be running in a single-process simulated network
 - to test the entire protocol implementation including socket communications, it can be run in a docker network with multiple containers
 - For distributed benchmarks, HoneyBadgerMPC can also be deployed to different cloud datacenters
-- To try out HoneyBadgerMPC, we recommend following [these instructions](docs/development/getting-started.rst#managing-your-development-environment-with-docker-compose) to set up the Docker-based development environment. Then check out [`apps/tutorial/`](apps/tutorial/) for a walkthrough that explains some sample MPC programs and shows to run in different modes
+- To try out HoneyBadgerMPC, we recommend following [these instructions](docs/development/getting-started.rst#managing-your-development-environment-with-docker-compose) to set up the Docker-based development environment. Then check out [`apps/tutorial/`](apps/tutorial/) for a walkthrough that explains some sample MPC programs and shows how to run in different modes
 
 ## How it Works
 Secure Multiparty Computation (MPC) is about computing on secret-shared data. For each piece of confidential data `x`, each of the `n` server nodes stores a different share `[x]`. Any `t` of the servers can be compromised without revealing any information about the confidential data. However, as long as `n-t` parties are runnng correctly, they can work together to perform arbitrary computations and disclose only the outputs, leaking no additional information about the inputs.
@@ -47,7 +47,7 @@ We use a linear overhead method `RanDouSha` [BH08]. See `offline_randousha.py`
 For more detail on the HoneyBadgerMPC components, see [docs/subprotocols.rst](docs/subprotocols.rst).
 
 ### Comparison with other MPC implementations
-Compared to oher MPC toolkit implementations (http://www.multipartycomputation.com/mpc-software,https://github.com/rdragos/awesome-mpc#software), HoneyBadgerMPC is unique in that it focuses on robustness.
+Compared to oher MPC toolkit implementations (http://www.multipartycomputation.com/mpc-software, https://github.com/rdragos/awesome-mpc#software), HoneyBadgerMPC is unique in that it focuses on robustness.
 In a network of `n` server nodes, assuming at most `t<n/3` are compromised, then HonyeBadgerMPC provides confidentiality, integrity, and availability guarantees. In MPC terminology, it is asynchronous, provides active security, has linear communication overhead, and guarantees output delivery.
 Other MPC toolkits, such as SCALE-MAMBA, Viff, EMP, SPDZ, and others, do not provide guaranteed output delivery, and so if even a single node crashes they stop providing output at all.
 
@@ -85,8 +85,13 @@ The following integration ideas have been explored so far:
 ### [Library Documentation](/docs)
 The HoneyBadgerMPC library documentation is under the [docs/](docs/) directory.
 
-## [Changelog](CHANGELOG.md)
-See [CHANGELOG.md](CHANGELOG.md).
-
 ### [Contributing to HoneyBadgerMPC](CONTRIBUTING.md)
 This is an open project we welcome contributions from others. See [CONTRIBUTING.md](CONTRIBUTING.md) to get started!
+
+### Acknowledgements
+See [CHANGELOG.md](CHANGELOG.md) for credits to individual contributors.
+Work on HoneyBadgerMPC has been funded in part by grants from:
+ - Initiative for Cryptocurrencies and Contracts [(IC3)](https://www.initc3.org/)
+ - [Center for Cognitive Systems and Research](https://c3sr.com/)
+ - National Science Foundation ([#1801321](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1801321), [#1943499](https://nsf.gov/awardsearch/showAward?AWD_ID=1943499))
+ - Cyber Resilient Energy Delivery Consortium [(CREDC)](https://iti.illinois.edu/research/energy-systems/cyber-resilient-energy-delivery-consortium-credc)

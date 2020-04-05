@@ -9,13 +9,14 @@ scripts/launch-tmuxlocal.sh apps/tutorial/hbmpc-tutorial-2.py conf/mpc/local
 """
 import asyncio
 import logging
+
 from honeybadgermpc.preprocessing import (
     PreProcessedElements as FakePreProcessedElements,
 )
 from honeybadgermpc.progs.mixins.share_arithmetic import (
-    MixinConstants,
     BeaverMultiply,
     BeaverMultiplyArrays,
+    MixinConstants,
 )
 
 mpc_config = {
@@ -55,6 +56,8 @@ if __name__ == "__main__":
     from honeybadgermpc.config import HbmpcConfig
     import sys
 
+    HbmpcConfig.load_config()
+
     if not HbmpcConfig.peers:
         print(
             f"WARNING: the $CONFIG_PATH environment variable wasn't set. "
@@ -67,9 +70,9 @@ if __name__ == "__main__":
     loop = asyncio.get_event_loop()
     loop.set_debug(True)
     try:
+        pp_elements = FakePreProcessedElements()
         if HbmpcConfig.my_id == 0:
             k = 100  # How many of each kind of preproc
-            pp_elements = FakePreProcessedElements()
             pp_elements.generate_bits(k, HbmpcConfig.N, HbmpcConfig.t)
             pp_elements.generate_triples(k, HbmpcConfig.N, HbmpcConfig.t)
             pp_elements.preprocessing_done()
